@@ -1,38 +1,6 @@
 const { Configuration, OpenAIApi } = require("openai");
 import { promises as fs } from 'fs';
 
-//////////////////////////////////////////////////////////////////////////
-let port=3033
-let url0=`http://192.168.0.241:${port}/api`
-
-async function fetchAndPrint(url0,text) {
- let list0=[]
-  const response = await fetch(url0, {
-     method: 'POST',
-     body: text,
-     headers: { 'Accept': 'text/event-stream' }
-    });
-
-  const reader = response.body.getReader();
-  const decoder = new TextDecoder('utf-8');
-  let result = '';
-
-  while (true) {
-    const { done, value } = await reader.read();
-    if (done) break;
-    result += decoder.decode(value);
-    list0.push(decoder.decode(value))
-  }
-
-  // console.log("$$$$$$",result.split("\n\n"),"%%%%%%%%%%\n",JSON.parse(list0[list0.length-2]).message);
-  return JSON.parse(list0[list0.length-2]).message
-}
-////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
 
 export default async function handler(req, res) {
 
